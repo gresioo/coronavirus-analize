@@ -3,6 +3,7 @@ import matplotlib.pylab as plt
 import cufflinks as cf
 from plotly.subplots import make_subplots
 from plotly import tools
+import plotly as py
 
 cf.go_offline()
 inData=pd.read_csv(r'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv')
@@ -16,9 +17,11 @@ for country in modifiedData.columns:
     dataOneCountry.append(onlyMoreThan10Temp.copy())
     
 
-pd.DataFrame(dataOneCountry).dropna(how='all').transpose().iplot(yaxis_type='log')
+dataAllCountriesZeroed=pd.DataFrame(dataOneCountry).dropna(how='all').transpose()
+fig = dataAllCountriesZeroed.iplot(filename='results.html',yaxis_type='log', asFigure=True,xTitle='Days since 100 cases in country', yTitle='# of confirmed cases')
 
-traces=[]
+py.offline.plot(fig,filename='results.html')
+
 pd.to_datetime(inData[inData['Country/Region']=='Poland'].transpose().iloc[4:].index)
 
 PolandData=inData[inData['Country/Region']=='Poland'].transpose().iloc[4:]
