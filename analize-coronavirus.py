@@ -20,7 +20,7 @@ for country in modifiedData.columns:
 dataAllCountriesZeroed=pd.DataFrame(dataOneCountry).dropna(how='all').transpose()
 fig = dataAllCountriesZeroed.iplot(filename='results.html',yaxis_type='log', asFigure=True,xTitle='Days since 100 cases in country', yTitle='# of confirmed cases')
 
-py.offline.plot(fig,filename='results.html')
+py.offline.plot(fig,filename='results.html',auto_open=False,show_link=False)
 
 pd.to_datetime(inData[inData['Country/Region']=='Poland'].transpose().iloc[4:].index)
 
